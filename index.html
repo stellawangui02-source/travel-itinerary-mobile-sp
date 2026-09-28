@@ -1,0 +1,1082 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stella & Paul in Dubai</title>
+  <style>
+    :root{
+      --bg:#f6f2e8;
+      --panel:#ffffff;
+      --panel-alt:#fbf7ef;
+      --ink:#18222f;
+      --muted:#6b7280;
+      --line:#e8ddcb;
+      --accent:#1f3b5b;
+      --accent-soft:#dfe9f4;
+      --accent-2:#c46d4f;
+      --accent-2-soft:#fde8df;
+      --gold:#d1a15f;
+      --gold-soft:#fbf1df;
+      --shadow:0 16px 40px rgba(17, 24, 39, .08);
+      --radius:24px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(209,161,95,.10), transparent 28%),
+        linear-gradient(180deg, #fbf8f1 0%, #f3efe6 100%);
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; }
+
+    .app {
+      max-width: 520px;
+      margin: 0 auto;
+      min-height: 100vh;
+      padding: 14px 12px 28px;
+    }
+
+    .shell {
+      overflow: hidden;
+      border: 1px solid rgba(232, 221, 203, .9);
+      border-radius: 30px;
+      background: rgba(255,255,255,.55);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      padding: 16px 16px 12px;
+      background: rgba(255,255,255,.72);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+      letter-spacing: .01em;
+    }
+
+    .logo {
+      width: 34px;
+      height: 34px;
+      border-radius: 13px;
+      display: grid;
+      place-items: center;
+      color: white;
+      font-size: 18px;
+      background: linear-gradient(135deg, var(--accent), #2c5b86);
+      box-shadow: 0 10px 18px rgba(31,59,91,.18);
+    }
+
+    .share-btn {
+      border: 1px solid var(--line);
+      background: white;
+      color: var(--accent);
+      border-radius: 999px;
+      padding: 9px 12px;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .content { padding: 14px 14px 18px; }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(180deg, rgba(9,29,48,.52), rgba(9,29,48,.72)),
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,.18), transparent 38%),
+        linear-gradient(135deg, #335e85 0%, #1f3b5b 55%, #16324b 100%);
+      color: white;
+      padding: 18px 16px 16px;
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      color: rgba(255,255,255,.72);
+      text-transform: uppercase;
+      letter-spacing: .16em;
+      font-size: .68rem;
+      font-weight: 800;
+    }
+
+    .hero h1 {
+      margin: 0;
+      font-size: clamp(2rem, 6vw, 2.7rem);
+      line-height: 1.02;
+      letter-spacing: -.02em;
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 700;
+    }
+
+    .hero p {
+      margin: 12px 0 0;
+      font-size: .96rem;
+      line-height: 1.55;
+      color: rgba(255,255,255,.84);
+      max-width: 38ch;
+    }
+
+    .meta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .pill {
+      border: 1px solid rgba(255,255,255,.20);
+      background: rgba(255,255,255,.08);
+      color: white;
+      border-radius: 999px;
+      padding: 8px 11px;
+      font-size: .76rem;
+      font-weight: 700;
+      backdrop-filter: blur(4px);
+    }
+
+    .hero-note {
+      margin-top: 14px;
+      padding: 12px 12px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.10);
+      border: 1px solid rgba(255,255,255,.14);
+      font-size: .82rem;
+      line-height: 1.45;
+      color: rgba(255,255,255,.88);
+    }
+
+    .section {
+      margin-top: 16px;
+      padding: 0;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+      margin: 0 2px 10px;
+    }
+
+    .section-header h2 {
+      margin: 0;
+      font-size: 1.02rem;
+      font-weight: 800;
+      letter-spacing: -.01em;
+    }
+
+    .section-header span {
+      color: var(--accent-2);
+      font-size: .78rem;
+      font-weight: 800;
+    }
+
+    .overview-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .stat {
+      background: rgba(255,255,255,.82);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 12px;
+      box-shadow: 0 8px 24px rgba(17,24,39,.04);
+    }
+
+    .stat .label {
+      color: var(--muted);
+      font-size: .72rem;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      font-weight: 800;
+    }
+
+    .stat .value {
+      margin-top: 6px;
+      font-size: .95rem;
+      line-height: 1.35;
+      font-weight: 800;
+    }
+
+    .ghost {
+      margin-top: 10px;
+      padding: 12px 13px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.74);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      font-size: .85rem;
+      line-height: 1.5;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: none;
+    }
+    .tabs::-webkit-scrollbar { display: none; }
+
+    .tab {
+      flex: 0 0 auto;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.86);
+      color: var(--muted);
+      border-radius: 999px;
+      padding: 9px 12px;
+      font-size: .78rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: .18s ease;
+    }
+    .tab.active {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+
+    .day-card {
+      margin-top: 10px;
+      background: rgba(255,255,255,.88);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 14px;
+      box-shadow: 0 10px 22px rgba(17,24,39,.04);
+    }
+
+    .day-title {
+      margin: 0;
+      font-size: 1.28rem;
+      line-height: 1.15;
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    .day-subtitle {
+      margin: 6px 0 0;
+      font-size: .86rem;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .day-meta {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag {
+      border-radius: 999px;
+      padding: 6px 9px;
+      font-size: .72rem;
+      font-weight: 800;
+      border: 1px solid var(--line);
+      background: var(--panel-alt);
+      color: var(--muted);
+    }
+
+    .timeline {
+      margin-top: 12px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .item {
+      position: relative;
+      padding: 13px 13px 13px 16px;
+      border-radius: 20px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, #fff 0%, #fcfbf8 100%);
+      box-shadow: 0 8px 18px rgba(17,24,39,.03);
+    }
+
+    .item::before {
+      content: "";
+      position: absolute;
+      left: 13px;
+      top: 14px;
+      bottom: 14px;
+      width: 2px;
+      border-radius: 99px;
+      background: linear-gradient(180deg, var(--accent) 0%, #c7d2dc 100%);
+      opacity: .9;
+    }
+
+    .item-inner {
+      margin-left: 13px;
+      padding-left: 14px;
+      position: relative;
+    }
+
+    .item-inner::before {
+      content: "";
+      position: absolute;
+      left: -19px;
+      top: 5px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 3px solid white;
+      box-shadow: 0 0 0 1px rgba(31,59,91,.18);
+    }
+
+    .time {
+      display: inline-block;
+      font-size: .72rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      font-weight: 900;
+      color: var(--accent);
+    }
+
+    .item-title {
+      margin: 4px 0 0;
+      font-size: 1.02rem;
+      line-height: 1.2;
+      font-weight: 800;
+    }
+
+    .item-meta {
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: .78rem;
+      font-weight: 700;
+    }
+
+    .item-desc {
+      margin-top: 8px;
+      font-size: .89rem;
+      line-height: 1.5;
+      color: #334155;
+    }
+
+    .bullets {
+      margin: 10px 0 0;
+      padding: 0 0 0 18px;
+      color: #334155;
+      font-size: .88rem;
+      line-height: 1.55;
+    }
+
+    .item-links {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .link-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: var(--accent-soft, #edf3f8);
+      border: 1px solid #d9e4ef;
+      color: var(--accent);
+      font-size: .73rem;
+      font-weight: 800;
+    }
+
+    .link-chip.primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: white;
+    }
+
+    .panel {
+      background: rgba(255,255,255,.88);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 14px;
+      box-shadow: 0 10px 22px rgba(17,24,39,.04);
+    }
+
+    .panel h3 {
+      margin: 0 0 10px;
+      font-size: 1rem;
+      font-weight: 900;
+    }
+
+    .checklist {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 10px;
+    }
+
+    .checkline {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: .87rem;
+      line-height: 1.45;
+    }
+    .checkline:last-child { border-bottom: 0; padding-bottom: 0; }
+
+    .check {
+      flex: 0 0 auto;
+      width: 20px;
+      height: 20px;
+      border-radius: 6px;
+      display: grid;
+      place-items: center;
+      background: var(--gold-soft);
+      color: #9b6b2a;
+      font-weight: 900;
+      margin-top: 1px;
+    }
+
+    .check.done {
+      background: #e6f6ee;
+      color: #2e8b57;
+    }
+
+    .two-col {
+      display: grid;
+      gap: 12px;
+    }
+
+    .hotel-grid {
+      display: grid;
+      gap: 10px;
+    }
+
+    .hotel-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: .87rem;
+      line-height: 1.45;
+    }
+    .hotel-row:last-child { border-bottom: 0; padding-bottom: 0; }
+
+    .hotel-row strong {
+      display: block;
+      font-size: .88rem;
+      color: var(--ink);
+    }
+    .hotel-row span {
+      display: block;
+      color: var(--muted);
+      margin-top: 3px;
+      font-size: .82rem;
+    }
+
+    .price-breakdown {
+      display: grid;
+      gap: 8px;
+    }
+
+    .price-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: .87rem;
+    }
+    .price-row:last-child { border-bottom: 0; padding-bottom: 0; }
+
+    .price-row .left {
+      font-weight: 800;
+      line-height: 1.35;
+      max-width: 70%;
+    }
+    .price-row .right {
+      text-align: right;
+      color: var(--muted);
+      line-height: 1.35;
+      white-space: nowrap;
+      font-weight: 700;
+    }
+
+    .total-box {
+      margin-top: 12px;
+      border-radius: 18px;
+      border: 1px solid rgba(209,161,95,.28);
+      background: linear-gradient(120deg, #fffaf1 0%, #f6f8fb 100%);
+      padding: 12px 13px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .total-box strong {
+      font-size: .88rem;
+      display: block;
+    }
+    .total-box span {
+      display: block;
+      color: var(--muted);
+      font-size: .77rem;
+      margin-top: 2px;
+    }
+    .total-box .amount {
+      text-align: right;
+      font-size: 1.02rem;
+      font-weight: 900;
+      color: var(--ink);
+    }
+
+    .links-list {
+      display: grid;
+      gap: 9px;
+    }
+
+    .booking-link {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      padding: 11px 12px;
+      border-radius: 16px;
+      background: #fbfbfb;
+      border: 1px solid var(--line);
+      font-size: .84rem;
+      line-height: 1.35;
+    }
+
+    .booking-link .name {
+      font-weight: 800;
+    }
+
+    .booking-link .url {
+      color: var(--muted);
+      font-size: .76rem;
+      word-break: break-all;
+      margin-top: 3px;
+    }
+
+    .booking-link .open {
+      flex: 0 0 auto;
+      border-radius: 999px;
+      padding: 8px 10px;
+      background: var(--accent);
+      color: white;
+      font-size: .72rem;
+      font-weight: 900;
+    }
+
+    .footer-note {
+      margin: 14px 2px 0;
+      color: var(--muted);
+      font-size: .74rem;
+      line-height: 1.55;
+      text-align: center;
+    }
+
+    @media (max-width: 420px) {
+      .overview-grid { grid-template-columns: 1fr; }
+      .price-row .left { max-width: 64%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="shell">
+      <header class="topbar">
+        <div class="brand">
+          <div class="logo">✈</div>
+          <div>
+            <div style="font-size:.96rem;">Dubai Itinerary</div>
+            <div style="font-size:.72rem;color:var(--muted);font-weight:700;">Public guest view</div>
+          </div>
+        </div>
+        <button class="share-btn" id="copyLinkBtn" type="button">⤴ Copy link</button>
+      </header>
+
+      <main class="content">
+        <section class="hero">
+          <p class="eyebrow">A four night escape · 25–29 September 2026</p>
+          <h1>Stella &amp; Paul in Dubai</h1>
+          <p>
+            From the marina skyline to the red dunes of the desert — a journey through the city's newest icons, its oldest traditions, and everything shimmering in between.
+          </p>
+
+          <div class="meta-row">
+            <span class="pill">EK718 Nairobi → Dubai · 07:10</span>
+            <span class="pill">EK721 Dubai → Nairobi · 15:55</span>
+            <span class="pill">2 Adults · 4 Nights</span>
+            <span class="pill">Deira, Dubai</span>
+          </div>
+
+          <div class="hero-note">
+            Kenyan passport holders don't currently qualify for UAE visa-on-arrival, so the visa needs sorting before 25 September. Apply in advance through Emirates/VFS Global with the listed documents.
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-header">
+            <h2>Quick overview</h2>
+            <span>Trip essentials</span>
+          </div>
+          <div class="overview-grid">
+            <div class="stat">
+              <div class="label">Travelers</div>
+              <div class="value">Stella &amp; Paul</div>
+            </div>
+            <div class="stat">
+              <div class="label">Base hotel</div>
+              <div class="value">Asiana Grand Hotel</div>
+            </div>
+            <div class="stat">
+              <div class="label">Flight in</div>
+              <div class="value">EK718 · Nairobi → Dubai</div>
+            </div>
+            <div class="stat">
+              <div class="label">Flight out</div>
+              <div class="value">EK721 · Dubai → Nairobi</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-header">
+            <h2>Day by day</h2>
+            <span>Tap a day</span>
+          </div>
+          <div class="tabs" id="dayTabs" aria-label="Trip days"></div>
+          <div class="day-card" id="dayHeader"></div>
+          <div class="timeline" id="dayTimeline"></div>
+        </section>
+
+        <section class="section">
+          <div class="section-header">
+            <h2>Visa &amp; documents</h2>
+            <span>Before you fly</span>
+          </div>
+          <div class="panel">
+            <h3>UAE Tourist Visa — Apply in Advance</h3>
+            <div class="ghost" style="margin-top:0;">
+              ~AED 350–500 + service fees · Standard processing about 3–5 working days via Emirates/VFS Global.
+            </div>
+            <ul class="checklist" id="docList"></ul>
+          </div>
+        </section>
+
+        <section class="section two-col">
+          <div class="panel">
+            <h3>Stay details</h3>
+            <div class="hotel-grid" id="hotelGrid"></div>
+          </div>
+
+          <div class="panel">
+            <h3>Budget</h3>
+            <div class="price-breakdown" id="budgetList"></div>
+            <div class="total-box">
+              <div>
+                <strong>Grand total</strong>
+                <span>Flights, stay, visa, transfer, and experiences</span>
+              </div>
+              <div class="amount" id="grandTotal"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-header">
+            <h2>Booking links</h2>
+            <span>Quick access</span>
+          </div>
+          <div class="links-list" id="bookingList"></div>
+        </section>
+
+        <p class="footer-note">
+          This page is designed as a public, no-login mobile itinerary view. If you want, you can later split it into an admin editor and a guest-only link.
+        </p>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    const data = {
+      trip: {
+        title: "Stella & Paul in Dubai",
+        dates: "25–29 September 2026",
+        nights: "4 Nights",
+        adults: "2 Adults",
+        route: "EK718 Nairobi → Dubai · EK721 Dubai → Nairobi",
+        base: "Deira, Dubai",
+        summary: "From the marina skyline to the red dunes of the desert — a journey through the city's newest icons, its oldest traditions, and everything shimmering in between."
+      },
+
+      documents: [
+        { done: false, text: "Kenyan passport holders don't currently qualify for UAE visa-on-arrival, so this needs sorting before 25 September." },
+        { done: false, text: "UAE Tourist Visa — apply in advance (~AED 350–500 + service fees)." },
+        { done: true, text: "Since you're flying Emirates, the simplest route is applying through Emirates directly once your ticket is issued — they process it via VFS Global." },
+        { done: false, text: "Kenyan passport, valid 6+ months from travel date (bio page copy)." },
+        { done: false, text: "Recent passport-style photo, white background, for each traveler." },
+        { done: true, text: "Confirmed Emirates return ticket (EK718 / EK721)." },
+        { done: true, text: "Asiana Grand Hotel booking confirmation." },
+        { done: false, text: "Marriage certificate — not mandatory, but worth including since you're applying as a couple, especially if your surnames differ." }
+      ],
+
+      days: [
+        {
+          label: "Day 1",
+          date: "Fri 25 Sept",
+          title: "Touchdown in Dubai",
+          subtitle: "Arrival & Settling In · Depart Nairobi 07:10 · Arrive Dubai 13:15",
+          badges: ["Emirates EK718", "Airport transfer", "Deira stay"],
+          cards: [
+            {
+              time: "Arrival",
+              title: "Arrival & Settling In",
+              meta: "Early afternoon arrival",
+              desc: "Emirates EK718 from Nairobi, landing early afternoon. Airport transfer to Asiana Grand Hotel, Deira (booked via Transfeero, see below). Check in, unpack, and catch your breath.",
+              bullets: [
+                "Emirates EK718 from Nairobi, landing early afternoon",
+                "Airport transfer to Asiana Grand Hotel, Deira (booked via Transfeero, see below)",
+                "Check in, unpack, and catch your breath",
+                "Evening stroll through Deira's souks and streets",
+                "Dinner at a nearby restaurant — nothing else on the agenda today"
+              ]
+            },
+            {
+              time: "Transfer",
+              title: "Airport Transfer — DXB to Hotel",
+              meta: "Round-trip · KSh 6,390 · Provider: Transfeero",
+              desc: "Private round-trip transfer covering both legs — pickup at Dubai International on arrival, and hotel-to-airport on departure day.",
+              links: [
+                { text: "Transfeero booking", url: "https://book.transfeero.com/reservation?ride=6a5686d80275d7e52e11bee2" }
+              ]
+            }
+          ]
+        },
+        {
+          label: "Day 2",
+          date: "Sat 26 Sept",
+          title: "Modern Dubai City Tour",
+          subtitle: "4h 45m · Hotel pickup included · Modern Dubai Highlights",
+          badges: ["Evendo", "Dubai Mall", "City tour"],
+          cards: [
+            {
+              time: "Tour",
+              title: "Modern Dubai Highlights",
+              meta: "US$93.10 for 2 · KSh 12,100 · Provider: Evendo",
+              desc: "A modern Dubai highlights route with hotel pickup included.",
+              bullets: [
+                "Souk Madinat Jumeirah",
+                "Palm Jumeirah",
+                "Palm Monorail",
+                "Atlantis photo stop",
+                "Dubai Marina",
+                "Bluewaters Island",
+                "Ain Dubai",
+                "Museum of the Future",
+                "Dubai Mall"
+              ]
+            },
+            {
+              time: "After tour",
+              title: "Free time at Dubai Mall",
+              meta: "Stay as long as you like",
+              desc: "Free time at Dubai Mall after the tour — stay as long as you like before making your own way back."
+            }
+          ]
+        },
+        {
+          label: "Day 3",
+          date: "Sun 27 Sept",
+          title: "VIP Evening Desert Safari",
+          subtitle: "Pickup ~2:30–3:30 PM · Return ~9:30–10:15 PM",
+          badges: ["Viator", "Desert safari", "Fire show"],
+          cards: [
+            {
+              time: "Evening",
+              title: "Dune Bashing to Fire Show",
+              meta: "US$83.74 for 2 · KSh 10,850 · Provider: Viator — Adventure Kings Tourism",
+              desc: "Red dune safari with dinner and entertainment in the desert.",
+              bullets: [
+                "Red dune bashing",
+                "Camel ride",
+                "Sandboarding",
+                "Sunset photography",
+                "Arabic coffee & dates",
+                "Traditional costumes",
+                "BBQ buffet dinner",
+                "Belly & Tanoura dance",
+                "Fire show"
+              ]
+            }
+          ]
+        },
+        {
+          label: "Day 4",
+          date: "Mon 28 Sept",
+          title: "Dubai Marina Luxury Dhow Cruise",
+          subtitle: "Pickup ~6:50–7:30 PM · Cruise from 8:30 PM (2 hours)",
+          badges: ["Viator", "Marina cruise", "Dinner"],
+          cards: [
+            {
+              time: "Evening",
+              title: "Dinner Cruise & Live Entertainment",
+              meta: "US$108.86 for 2 · KSh 14,100 · Provider: Viator — Good Sky Tourism",
+              desc: "A waterfront dinner cruise with skyline views and live entertainment.",
+              bullets: [
+                "Shared hotel transfer",
+                "International buffet dinner",
+                "Soft drinks & juice",
+                "Live entertainment",
+                "Marina skyline views",
+                "Palm Jumeirah & Atlantis views",
+                "Ain Dubai views"
+              ]
+            }
+          ]
+        },
+        {
+          label: "Day 5",
+          date: "Tue 29 Sept",
+          title: "Homeward Bound",
+          subtitle: "Depart Dubai 15:55 · Arrive Nairobi 20:00",
+          badges: ["EK721", "Check out", "Return transfer"],
+          cards: [
+            {
+              time: "Morning",
+              title: "Departure day",
+              meta: "Final breakfast and airport transfer",
+              desc: "Leisurely breakfast at the hotel, check out, airport transfer to DXB (return leg of your Transfeero booking), and Emirates EK721 back to Nairobi.",
+              bullets: [
+                "Leisurely breakfast at the hotel",
+                "Check out",
+                "Airport transfer to DXB (return leg of your Transfeero booking)",
+                "Emirates EK721 back to Nairobi"
+              ]
+            }
+          ]
+        }
+      ],
+
+      hotel: {
+        name: "Asiana Grand Hotel",
+        rating: "8.5 Very Good · 4,001 reviews",
+        amenities: ["Free WiFi", "Airport shuttle", "Parking", "Restaurant", "Swimming pool", "Deluxe King Room"],
+        checkIn: "Fri 25 Sept 2026 · 14:00–00:00",
+        checkOut: "Tue 29 Sept 2026 · 07:00–12:00",
+        room: "1 × Deluxe King Room, 2 adults",
+        guest: "Stella Wangui",
+        costs: [
+          { label: "Original price", value: "KES 28,505" },
+          { label: "Getaway Deal", value: "− KES 5,131" },
+          { label: "Genius discount (10%)", value: "− KES 2,850" },
+          { label: "Room price", value: "KES 20,523" },
+          { label: "Taxes & charges", value: "+ KES 7,433" }
+        ],
+        total: "≈ AED 583 · KES 27,956"
+      },
+
+      budget: [
+        { name: "Emirates return flights", value: "167,690", details: "~AED 4,765 · ~$1,298" },
+        { name: "Round-trip airport transfer", value: "6,390", details: "~AED 182 · ~$49.53" },
+        { name: "Asiana Grand Hotel (4 nights)", value: "27,956", details: "~AED 794 · ~$216" },
+        { name: "Modern Dubai City Tour", value: "12,100", details: "~AED 342 · $93.10" },
+        { name: "VIP Desert Safari", value: "10,850", details: "~AED 307 · $83.74" },
+        { name: "Luxury Dhow Cruise", value: "14,100", details: "~AED 400 · $108.86" },
+        { name: "UAE Tourist Visa (2 travelers, est.)", value: "~31,700", details: "~AED 900 · ~$245" }
+      ],
+
+      total: "KSh 270,786 · AED 7,690 · US$2,094",
+
+      links: [
+        { name: "UAE Visa — via Emirates", url: "https://www.emirates.com/ke/english/before-you-fly/visa-passport-information/uae-visa-information/" },
+        { name: "UAE Visa — VFS Global Kenya", url: "https://visa.vfsglobal.com/ken/en/are" },
+        { name: "Hotel — Asiana Grand Hotel", url: "#" },
+        { name: "Transfeero — Airport Transfer", url: "https://book.transfeero.com/reservation?ride=6a5686d80275d7e52e11bee2" },
+        { name: "Evendo — Modern Dubai City Tour", url: "https://evendo.com/product/modern-dubai-city-tour/26916521" },
+        { name: "Viator — VIP Desert Safari", url: "https://viator.com/tours/Dubai/Desert-Safari-Premium-Tour-With-VIP-Service/d828-331395P1" },
+        { name: "Viator — Luxury Dhow Cruise", url: "https://viator.com/tours/Dubai/Dhow-Cruise-with-Dinner-at-Dubai-Marina/d828-465991P2" }
+      ]
+    };
+
+    const dayTabs = document.getElementById("dayTabs");
+    const dayHeader = document.getElementById("dayHeader");
+    const dayTimeline = document.getElementById("dayTimeline");
+    const docList = document.getElementById("docList");
+    const hotelGrid = document.getElementById("hotelGrid");
+    const budgetList = document.getElementById("budgetList");
+    const grandTotal = document.getElementById("grandTotal");
+    const bookingList = document.getElementById("bookingList");
+    const copyLinkBtn = document.getElementById("copyLinkBtn");
+
+    let activeDay = 0;
+
+    function renderTabs() {
+      dayTabs.innerHTML = "";
+      data.days.forEach((day, index) => {
+        const btn = document.createElement("button");
+        btn.className = "tab" + (index === activeDay ? " active" : "");
+        btn.type = "button";
+        btn.textContent = `${day.label} · ${day.date}`;
+        btn.addEventListener("click", () => {
+          activeDay = index;
+          renderDay();
+        });
+        dayTabs.appendChild(btn);
+      });
+    }
+
+    function renderDay() {
+      const day = data.days[activeDay];
+      renderTabs();
+
+      dayHeader.innerHTML = `
+        <h3 class="day-title">${day.title}</h3>
+        <div class="day-subtitle">${day.subtitle}</div>
+        <div class="day-meta">
+          ${day.badges.map(b => `<span class="tag">${b}</span>`).join("")}
+        </div>
+      `;
+
+      dayTimeline.innerHTML = day.cards.map(card => `
+        <article class="item">
+          <div class="item-inner">
+            <span class="time">${card.time}</span>
+            <h4 class="item-title">${card.title}</h4>
+            ${card.meta ? `<div class="item-meta">${card.meta}</div>` : ""}
+            ${card.desc ? `<div class="item-desc">${card.desc}</div>` : ""}
+            ${card.bullets ? `<ul class="bullets">${card.bullets.map(b => `<li>${b}</li>`).join("")}</ul>` : ""}
+            ${
+              card.links
+                ? `<div class="item-links">${card.links.map(l => `<a class="link-chip primary" href="${l.url}" target="_blank" rel="noreferrer noopener">${l.text}</a>`).join("")}</div>`
+                : ""
+            }
+          </div>
+        </article>
+      `).join("");
+    }
+
+    function renderDocs() {
+      docList.innerHTML = data.documents.map(doc => `
+        <li class="checkline">
+          <span class="check ${doc.done ? "done" : ""}">${doc.done ? "✓" : "•"}</span>
+          <span>${doc.text}</span>
+        </li>
+      `).join("");
+    }
+
+    function renderHotel() {
+      hotelGrid.innerHTML = `
+        <div class="ghost" style="margin-top:0;">
+          <strong>${data.hotel.name}</strong><br />
+          ${data.hotel.rating}<br />
+          ${data.hotel.amenities.join(" · ")}
+        </div>
+
+        <div class="hotel-row">
+          <div>
+            <strong>Check-in</strong>
+            <span>${data.hotel.checkIn}</span>
+          </div>
+          <div style="text-align:right;">
+            <strong>Check-out</strong>
+            <span>${data.hotel.checkOut}</span>
+          </div>
+        </div>
+
+        <div class="hotel-row">
+          <div>
+            <strong>Room</strong>
+            <span>${data.hotel.room}</span>
+          </div>
+          <div style="text-align:right;">
+            <strong>Main guest</strong>
+            <span>${data.hotel.guest}</span>
+          </div>
+        </div>
+
+        ${data.hotel.costs.map(row => `
+          <div class="hotel-row">
+            <div>
+              <strong>${row.label}</strong>
+            </div>
+            <div style="text-align:right;">
+              <span>${row.value}</span>
+            </div>
+          </div>
+        `).join("")}
+
+        <div class="total-box" style="margin-top:4px;">
+          <div>
+            <strong>Total (4 nights)</strong>
+            <span>Hotel base in Deira, Dubai</span>
+          </div>
+          <div class="amount">${data.hotel.total}</div>
+        </div>
+      `;
+    }
+
+    function renderBudget() {
+      budgetList.innerHTML = data.budget.map(row => `
+        <div class="price-row">
+          <div class="left">${row.name}</div>
+          <div class="right">KSh ${row.value}<br />${row.details}</div>
+        </div>
+      `).join("");
+
+      grandTotal.textContent = data.total;
+    }
+
+    function renderLinks() {
+      bookingList.innerHTML = data.links.map(link => `
+        <a class="booking-link" href="${link.url}" target="_blank" rel="noreferrer noopener">
+          <div>
+            <div class="name">${link.name}</div>
+            <div class="url">${link.url}</div>
+          </div>
+          <div class="open">Open</div>
+        </a>
+      `).join("");
+    }
+
+    copyLinkBtn.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(window.location.href);
+        copyLinkBtn.textContent = "✓ Copied";
+        setTimeout(() => copyLinkBtn.textContent = "⤴ Copy link", 1400);
+      } catch (err) {
+        alert("Copy this link manually:\n" + window.location.href);
+      }
+    });
+
+    renderDay();
+    renderDocs();
+    renderHotel();
+    renderBudget();
+    renderLinks();
+  </script>
+</body>
+</html>
